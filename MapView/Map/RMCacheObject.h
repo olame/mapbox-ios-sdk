@@ -55,7 +55,7 @@
 /** Initializes and returns a newly allocated cache object for a given key and object to store in a given cache.
  
  @param anObject The object to cache, typically a UIImage.
- @param aTile The tile key for the object.
+ @param tile The tile key for the object.
  @param aCacheKey The unique identifier for the cache.
  
  @return An initialized cache object.
