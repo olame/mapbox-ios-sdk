@@ -30,6 +30,7 @@
 
 @class RMMapView, RMMapLayer, RMQuadTreeNode;
 
+/** An RMAnnotation object defines a container for annotation data to be placed on a map. At a future point in time, depending on map use, a visible layer may be requested and displayed for the annotation. The layer can be set ahead of time using the annotation's layer property, or, in the recommended approach, can be provided by an RMMapView's delegate object using the `mapView:layerForAnnotation:` method of RMMapViewDelegate. */
 @interface RMAnnotation : NSObject
 {
     CLLocationCoordinate2D coordinate;
@@ -67,7 +68,7 @@
 @property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, assign) BOOL clusteringEnabled;
 
-// RMMarker, RMPath, whatever you return in your delegate method mapView:layerForAnnotation:
+/** An RMMapLayer-derived object representing the annotation's visual appearance. Common classes used for layers are RMMarker, RMShape, and RMCircle. */
 @property (nonatomic, retain) RMMapLayer *layer;
 
 // This is for the QuadTree. Don't mess this up.

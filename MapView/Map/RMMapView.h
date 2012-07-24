@@ -61,23 +61,57 @@ enum : NSUInteger {
     RMMapMinWidthBound	= 2  // Minimum map width when zooming out restricted to view width (default)
 };
 
-// constants for the scrollview deceleration mode
+/// The mode used to control map scrolling deceleration.
 typedef enum : NSUInteger {
-    RMMapDecelerationNormal = 0, // default
-    RMMapDecelerationFast   = 1,
-    RMMapDecelerationOff    = 2
+    RMMapDecelerationNormal = 0, /// The default deceleration rate for a map view.
+    RMMapDecelerationFast   = 1, /// A fast deceleration rate for a map view.
+    RMMapDecelerationOff    = 2  /// No deceleration for a map view. Scrolls stop immediately. 
 } RMMapDecelerationMode;
 
-
+/** An RMMapView object provides an embeddable map interface, similar to the one provided by Apple's MapKit. You use this class as-is to display map information and to manipulate the map contents from your application. You can center the map on a given coordinate, specify the size of the area you want to display, and annotate the map with custom information.
+    
+ @warning **Important:** Please note that you are responsible for getting permission to use the map data, and for ensuring your use adheres to the relevant terms of use.
+*/
 @interface RMMapView : UIView <UIScrollViewDelegate, UIGestureRecognizerDelegate, RMMapScrollViewDelegate, CLLocationManagerDelegate>
 
+/** @name Accessing the Delegate */
+
+/** The receiver's delegate. 
+
+ A map view sends messages to its delegate regarding the loading of map data and changes in the portion of the map being displayed. The delegate also manages the annotation views used to highlight points of interest on the map.
+
+ The delegate should implement the methods of the RMMapViewDelegate protocol.
+*/
 @property (nonatomic, assign) id <RMMapViewDelegate> delegate;
+
+/** @name Accessing Map Properties */
 
 #pragma mark - View properties
 
+/** A Boolean value that determines whether the user may scroll around the map.
+ 
+ This property controls only user interactions with the map. If you set the value of this property to NO, you may still change the map location programmatically.
+ 
+ The default value of this property is YES.
+*/
 @property (nonatomic, assign) BOOL enableDragging;
+
+/** A Boolean value that determines whether the map view bounces past the edge of content and back again and whether it animates the content scaling when the scaling exceeds the maximum or minimum limits. 
+ 
+If the value of this property is YES, the map view bounces when it encounters a boundary of the content or when zooming exceeds either the maximum or minimum limits for scaling. Bouncing visually indicates that scrolling or zooming has reached an edge of the content. If the value is NO, scrolling and zooming stop immediately at the content boundary without bouncing. 
+ 
+ The default value is NO.
+*/
 @property (nonatomic, assign) BOOL enableBouncing;
+
+/** A Boolean value that determines whether double-tap zooms of the map always zoom on the center of the map, or whether they zoom on the center of the double-tap gesture. The default value is NO.
+*/
 @property (nonatomic, assign) BOOL zoomingInPivotsAroundCenter;
+
+/** The mode used when decelerating the map scrolling. 
+
+ Possible values are described in "RMMapDecelerationMode."
+*/
 @property (nonatomic, assign) RMMapDecelerationMode decelerationMode;
 
 @property (nonatomic, assign)   double metersPerPixel;
@@ -85,13 +119,41 @@ typedef enum : NSUInteger {
 @property (nonatomic, readonly) double scaleDenominator; // The denominator in a cartographic scale like 1/24000, 1/50000, 1/2000000.
 @property (nonatomic, readonly) float screenScale;
 
+/** A Boolean value that adjusts the display of map tile images for retina-capable screens. 
+ 
+ If set to YES, the map tiles are drawn at double size, typically 512 pixels square instead of 256 pixels, in order to compensate for smaller features and to make them more legible. If tiles designed for retina devices are used, this value should be set to NO in order to display these tiles at the proper size. The deafults value is NO.
+*/
 @property (nonatomic, assign)   BOOL adjustTilesForRetinaDisplay;
 @property (nonatomic, readonly) float adjustedZoomForRetinaDisplay; // takes adjustTilesForRetinaDisplay and screen scale into account
 
+/** @name Tracking the User Location */
+
+/** A Boolean value indicating whether the map may display the user location.
+ 
+ This property does not indicate whether the user’s position is actually visible on the map, only whether the map view is allowed to display it. To determine whether the user’s position is visible, use the userLocationVisible property. The default value of this property is NO.
+ 
+ Setting this property to YES causes the map view to use the Core Location framework to find the current location. As long as this property is YES, the map view continues to track the user’s location and update it periodically.
+*/
 @property (nonatomic) BOOL showsUserLocation;
+
+/** The annotation object representing the user’s current location. (read-only) */
 @property (nonatomic, readonly, retain) RMUserLocation *userLocation;
+
+/** A Boolean value indicating whether the device’s current location is visible in the map view. (read-only)
+ 
+ This property uses the horizontal accuracy of the current location to determine whether the user’s location is visible. Thus, this property is YES if the specific coordinate is offscreen but the rectangle surrounding that coordinate (and defined by the horizontal accuracy value) is partially onscreen.
+ 
+ If the user’s location cannot be determined, this property contains the value NO.
+*/
 @property (nonatomic, readonly, getter=isUserLocationVisible) BOOL userLocationVisible;
+
+/** The mode used to track the user location.
+ 
+ Possible values are described in “RMUserTrackingMode.”
+*/
 @property (nonatomic) RMUserTrackingMode userTrackingMode;
+
+/** @name Attributing Map Data */
 
 @property (weak) UIViewController *viewControllerPresentingAttribution;
 
@@ -133,6 +195,8 @@ typedef enum : NSUInteger {
 
 - (void)moveBy:(CGSize)delta;
 
+/** @name Manipulating the Visible Portion of the Map */
+
 #pragma mark - Zoom
 
 // minimum and maximum zoom number allowed for the view. #minZoom and #maxZoom must be within the limits of #tileSource but can be stricter; they are clamped to tilesource limits (minZoom, maxZoom) if needed.
@@ -171,10 +235,14 @@ typedef enum : NSUInteger {
 - (void)setConstraintsSouthWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast;
 - (void)setProjectedConstraintsSouthWest:(RMProjectedPoint)southWest northEast:(RMProjectedPoint)northEast;
 
+/** @name Accessing Snapshot Images of the Map */
+
 #pragma mark - Snapshots
 
 - (UIImage *)takeSnapshot;
 - (UIImage *)takeSnapshotAndIncludeOverlay:(BOOL)includeOverlay;
+
+/** @name Annotating the Map */
 
 #pragma mark - Annotations
 
@@ -200,6 +268,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) CGSize clusterAreaSize;
 
 @property (nonatomic, retain)   RMTileCache *tileCache;
+
+/** @name Managing Map Tile Sources and Layering */
+
 @property (nonatomic, readonly) RMTileSourcesContainer *tileSourcesContainer;
 
 @property (nonatomic, retain) id <RMTileSource> tileSource; // the first tile source, for backwards compatibility
@@ -219,10 +290,14 @@ typedef enum : NSUInteger {
 - (void)reloadTileSource:(id <RMTileSource>)tileSource;
 - (void)reloadTileSourceAtIndex:(NSUInteger)index;
 
+/** @name Managing Tile Caching Behavior */
+
 #pragma mark - Cache
 
 //  Clear all images from the #tileSource's caching system.
 -(void)removeAllCachedImages;
+
+/** @name Converting Map Coordinates */
 
 #pragma mark - Conversions
 
@@ -250,6 +325,11 @@ typedef enum : NSUInteger {
 #pragma mark -
 #pragma mark User Location
 
+/** Sets the mode used to track the user location with optional animation.
+ 
+ @param mode The mode used to track the user location. Possible values are described in “RMUserTrackingMode.”
+ @param animated If YES, the change from the current mode to the new mode is animated; otherwise, it is not. This parameter affects only tracking mode changes. Changes to the user location or heading are always animated.
+*/
 - (void)setUserTrackingMode:(RMUserTrackingMode)mode animated:(BOOL)animated;
 
 @end
