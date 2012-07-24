@@ -30,7 +30,7 @@
 
 @class RMMapView, RMMapLayer, RMQuadTreeNode;
 
-/** An RMAnnotation object defines a container for annotation data to be placed on a map. At a future point in time, depending on map use, a visible layer may be requested and displayed for the annotation. The layer can be set ahead of time using the annotation's layer property, or, in the recommended approach, can be provided by an RMMapView's delegate object using the `mapView:layerForAnnotation:` method of RMMapViewDelegate. */
+/** An RMAnnotation object defines a container for annotation data to be placed on a map. At a future point in time, depending on map use, a visible layer may be requested and displayed for the annotation. The layer can be set ahead of time using the annotation's layer property, or, in the recommended approach, can be provided by an RMMapView's delegate object using [RMMapViewDelegate mapView:layerForAnnotation:]. */
 @interface RMAnnotation : NSObject
 {
     CLLocationCoordinate2D coordinate;
