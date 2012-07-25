@@ -30,16 +30,17 @@
 //  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  Based on the UTFGrid specification: https://github.com/mapbox/utfgrid-spec
-//
 
 #import "RMMapView.h"
 #import "RMMBTilesSource.h"
 #import "RMMapBoxSource.h"
 
-// Interactivity currently supports two types of output: 'teaser'
-// and 'full'. Ideal for master/detail interfaces or for showing
-// a MapKit-style detail-toggling point callout. 
+/** Developers can import `RMInteractiveSource.h` in order to enable embedded interactivity in their RMMapView, RMMBTilesSource, and RMMapBoxSource objects. Interactivity is based on the [UTFGrid specification](https://github.com/mapbox/utfgrid-spec) and is best described by [this web demo](http://mapbox.com/demo/visiblemap/). 
+
+ Interactive map views adopt the RMInteractiveMapView protocol.
+
+ Interactivity currently supports two types of output, teaser and full. These two types are ideal for master/detail interfaces or for showing a MapKit-style detail-toggling point callout. 
+*/
 
 typedef enum {
     RMInteractiveSourceOutputTypeTeaser = 0,
@@ -50,12 +51,16 @@ typedef enum {
 
 @required
 
-// Query if a map view supports interactivity features.
-//
+/** Returns YES if a map view supports interactivity features given its current tile sources. */
 - (BOOL)supportsInteractivity;
 
-// Get the HTML-formatted output for a given point on a given map view.
-//
+/** Returns the HTML-formatted output for a given point on a given map view. 
+ 
+ @param outputType The type of feature info desired. 
+ @param point A point in the map view. 
+ 
+ @return The formatted feature output.
+*/
 - (NSString *)formattedOutputOfType:(RMInteractiveSourceOutputType)outputType forPoint:(CGPoint)point;
 
 @end
@@ -71,16 +76,27 @@ typedef enum {
 
 #pragma mark -
 
+/** Developers can import `RMInteractiveSource.h` in order to enable embedded interactivity in their RMMapView, RMMBTilesSource, and RMMapBoxSource objects. Interactivity is based on the [UTFGrid specification](https://github.com/mapbox/utfgrid-spec) and is best described by [this web demo](http://mapbox.com/demo/visiblemap/).
+ 
+ Interactive tile sources adopt the RMInteractiveSource protocol. 
+ 
+ Interactivity currently supports two types of output, teaser and full. These two types are ideal for master/detail interfaces or for showing a MapKit-style detail-toggling point callout.
+ */
 @protocol RMInteractiveSource
 
 @required
 
-// Query if a tile source supports interactivity features.
-//
+/** Returns YES if a tile source supports interactivity features. */
 - (BOOL)supportsInteractivity;
 
-// Get the HTML-formatted output for a given point on a given map view.
-//
+/** Returns the HTML-formatted output for a given point on a given map view, considering the currently active interactive tile source.
+ 
+ @param outputType The type of feature info desired.
+ @param point A point in the map view.
+ @param mapView The map view being interacted with. 
+ 
+ @return The formatted feature output.
+ */
 - (NSString *)formattedOutputOfType:(RMInteractiveSourceOutputType)outputType forPoint:(CGPoint)point inMapView:(RMMapView *)mapView;
 
 @end
