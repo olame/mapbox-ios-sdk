@@ -11,4 +11,5 @@ appledoc --project-name "MapBox iOS SDK" \
          --ignore Map/NSUserDefaults+RouteMe.h \
          --ignore Map/RMPath.h \
          --clean-output \
+         --no-install-docset \
          .
