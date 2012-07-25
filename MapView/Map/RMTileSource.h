@@ -40,27 +40,48 @@
 
 #pragma mark -
 
+/** The RMTileSource protocol describes the general interface for map tile sources. Whether retrieved from network sources or provided locally, tile sources must provide some specific minimum properties. */
 @protocol RMTileSource <NSObject>
 
-// min and max zoom can be set externally since you might want to constrain the zoom level range
+/** The minimum zoom level supported by the tile source. */
 @property (nonatomic, assign) float minZoom;
+
+/** The maximum zoom level supported by the tile source. */
 @property (nonatomic, assign) float maxZoom;
 
 @property (nonatomic, readonly) RMFractalTileProjection *mercatorToTileProjection;
 @property (nonatomic, readonly) RMProjection *projection;
 
+/** The bounding box that the tile source provides coverage for. */
 @property (nonatomic, readonly) RMSphericalTrapezium latitudeLongitudeBoundingBox;
 
+/** A unique key representing the tile source's cache objects in order to distinguish them from other tile sources. */
 @property (nonatomic, readonly) NSString *uniqueTilecacheKey;
+
+/** The number of pixels along the side of a tile image for this source. */
 @property (nonatomic, readonly) NSUInteger tileSideLength;
 
+/** A short version of the tile source's name. */
 @property (nonatomic, readonly) NSString *shortName;
+
+/** An extended version of the tile source's description. */
 @property (nonatomic, readonly) NSString *longDescription;
+
+/** A short version of the tile source's attribution string. */
 @property (nonatomic, readonly) NSString *shortAttribution;
+
+/** An extended version of the tile source's attribution string. */
 @property (nonatomic, readonly) NSString *longAttribution;
 
 #pragma mark -
 
+/** Provide an image for a given tile location using a given cache. 
+ 
+ @param tile The map tile in question. 
+ @param tileCache A tile cache to check first when providing the image. 
+ 
+ @return An image to display. 
+*/
 - (UIImage *)imageForTile:(RMTile)tile inCache:(RMTileCache *)tileCache;
 - (void)cancelAllDownloads;
 

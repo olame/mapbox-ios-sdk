@@ -37,6 +37,7 @@
 
 #pragma mark --- end constants ---
 
+/** Abstract class representing a Mercator projection for the display of map tiles. */
 @interface RMAbstractMercatorTileSource : NSObject <RMTileSource>
 
 @end
