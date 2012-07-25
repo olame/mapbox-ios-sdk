@@ -155,6 +155,8 @@ If the value of this property is YES, the map view bounces when it encounters a 
 
 /** @name Attributing Map Data */
 
+/** An instance of UIViewController that is the view controller presenting the map view. This view controller will receive a page curl transition to display the attribution information when the user taps the appropriate user interface element. 
+*/
 @property (weak) UIViewController *viewControllerPresentingAttribution;
 
 // take missing tiles from lower zoom levels, up to #missingTilesDepth zoom levels (defaults to 0, which disables this feature)

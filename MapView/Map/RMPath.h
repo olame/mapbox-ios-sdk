@@ -32,6 +32,10 @@
 
 @class RMMapView;
 
+/** An RMPath object is used to represent a line, polygon, or other shape composed of two or more points connected by straight lines. An RMPath object changes visible size in response to map zooms in order to consistently represent coverage of the same geographic area. 
+
+ @warning **Deprecated. Use RMShape instead.**
+*/
 @interface RMPath : RMMapLayer
 {
     BOOL isFirstPoint;
@@ -79,7 +83,10 @@
     RMMapView *mapView;
 }
 
-// DEPRECATED. Use RMShape instead.
+/** Initializes and returns a newly allocated path object for the specified map view. 
+ 
+ @param aMapView The map view the path should be drawn on. 
+*/
 - (id)initWithView:(RMMapView *)aMapView __attribute__ ((deprecated));;
 
 @property (nonatomic, assign) CGPathDrawingMode drawingMode;

@@ -54,6 +54,8 @@
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) NSString *title;
+
+/** Storage for arbitrary data. */
 @property (nonatomic, retain) id userInfo;
 @property (nonatomic, retain) NSString *annotationType;
 @property (nonatomic, retain) UIImage *annotationIcon;
@@ -68,7 +70,12 @@
 @property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, assign) BOOL clusteringEnabled;
 
-/** An RMMapLayer-derived object representing the annotation's visual appearance. Common classes used for layers are RMMarker, RMShape, and RMCircle. */
+/** An object representing the annotation's visual appearance. 
+ 
+ @see RMMarker
+ @see RMShape
+ @see RMCircle
+*/
 @property (nonatomic, retain) RMMapLayer *layer;
 
 // This is for the QuadTree. Don't mess this up.

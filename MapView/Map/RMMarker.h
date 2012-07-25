@@ -37,8 +37,7 @@ typedef enum {
     RMMarkerMapBoxImageSizeLarge
 } RMMarkerMapBoxImageSize;
 
-// one marker drawn on the map. Note that RMMarker ultimately descends from CALayer, and has an image contents.
-// RMMarker inherits "position" and "anchorPoint" from CALayer.
+/** An RMMarker object is used for simple point annotations on a map view, represented as a single image. RMMarker objects do not change in size when the map view zooms in or out, but instead stay the same size to consistently represent a point on the map view. */
 @interface RMMarker : RMMapLayer
 {
     // Text label, visible by default if it has content, but not required.
@@ -47,23 +46,36 @@ typedef enum {
     UIColor *textBackgroundColor;
 }
 
+/** The marker object's label. */
 @property (nonatomic, retain) UIView  *label;
+
+/** The marker object's label text foreground color. */
 @property (nonatomic, retain) UIColor *textForegroundColor;
+
+/** The marker object's label text background color. */
 @property (nonatomic, retain) UIColor *textBackgroundColor;
 
-// the font used for labels when another font is not explicitly requested; currently [UIFont systemFontOfSize:15]
+/** The font used for labels when another font is not explicitly requested. The default is the system font with size `15`. */
 + (UIFont *)defaultFont;
 
-// returns RMMarker initialized with #image, and the default anchor point (0.5, 0.5)
+/** Initializes and returns a newly allocated marker object using the specified image. 
+ 
+ @param image An image to use for the marker. 
+*/
 - (id)initWithUIImage:(UIImage *)image;
 
-// \brief returns RMMarker initialized with provided image and anchorPoint.
-// #anchorPoint x and y range from 0 to 1, normalized to the width and height of image,
-// referenced to upper left corner, y increasing top to bottom. To put the image's upper right corner on the marker's
-// #projectedLocation, use an anchor point of (1.0, 0.0);
+/** Initializes and returns a newly allocated marker object using the specified image and anchor point. 
+ 
+ @param image An image to use for the marker. 
+ @param anchorPoint A point representing a range from `0` to `1` in each of the height and width coordinate space, normalized to the size of the image, at which to place the image. 
+ 
+ @return An initialized marker object. 
+*/
 - (id)initWithUIImage:(UIImage *)image anchorPoint:(CGPoint)anchorPoint;
 
-// fetches, caches, and uses remote MapBox marker images (default is a medium, empty, gray pin)
+/** @name Creating Markers Using the MapBox Image Library */
+
+/** Initializes and returns a newly allocated marker object using the default, empty, gray, medium-sized pin image. */
 - (id)initWithMapBoxMarkerImage;
 - (id)initWithMapBoxMarkerImage:(NSString *)symbolName;
 - (id)initWithMapBoxMarkerImage:(NSString *)symbolName tintColor:(UIColor *)color;
@@ -83,6 +95,7 @@ typedef enum {
 // changes the labelView to a UILabel with supplied #text and default marker font, changing this marker's text foreground/background colors for this and future text strings; modifies position as in #changeLabelUsingText:position.
 - (void)changeLabelUsingText:(NSString *)text position:(CGPoint)position font:(UIFont *)font foregroundColor:(UIColor *)textColor backgroundColor:(UIColor *)backgroundColor;
 
+/** @name Showing and Hiding the Marker Label */
 - (void)toggleLabel;
 - (void)showLabel;
 - (void)hideLabel;
