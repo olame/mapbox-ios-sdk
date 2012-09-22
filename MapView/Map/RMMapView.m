@@ -1575,7 +1575,7 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if ([touch.view isKindOfClass:[UIButton class]]) {
+    if ([touch.view isKindOfClass:[UIControl class]]) {
         return NO;
     }
     return YES;
