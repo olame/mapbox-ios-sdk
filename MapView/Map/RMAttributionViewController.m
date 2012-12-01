@@ -44,6 +44,7 @@
 
         webView.backgroundColor = [UIColor clearColor];
         webView.opaque = NO;
+        webView.scrollView.bounces = NO;
 
         NSMutableString *attribution = [NSMutableString string];
 
