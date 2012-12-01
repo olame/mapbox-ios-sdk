@@ -34,9 +34,9 @@
 
         self.view.backgroundColor = [UIColor darkGrayColor];
         
-        [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalViewControllerAnimated:)]];
+        [self.view addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalViewControllerAnimated:)] autorelease]];
         
-        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 70, self.view.bounds.size.width, 60)];
+        UIWebView *webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 70, self.view.bounds.size.width, 60)] autorelease];
         
         webView.delegate = self;
         
