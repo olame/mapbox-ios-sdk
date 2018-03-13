@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
       end
     end
     File.open(library.copy_resources_script_path, 'a') do |file|
-      file.puts "install_resource 'Resources/mapbox-ios-sdk.bundle'"
+      file.puts "install_resource 'Resources/Mapbox.bundle'"
     end
   end
   s.frameworks = 'CoreGraphics', 'CoreLocation', 'Foundation', 'QuartzCore', 'UIKit'
