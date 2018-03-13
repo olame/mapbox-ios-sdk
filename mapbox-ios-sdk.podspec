@@ -10,12 +10,12 @@ Pod::Spec.new do |s|
   s.version          = "0.1"
   s.summary          = "Mapbox framework for iOS forked."
   s.homepage         = "https://github.com/olame/mapbox-ios-sdk"
-  s.license          = ''
+  s.license          = 'MIT'
   s.author           = { "Mapbox" => "mobile@mapbox.com" }
   s.source           = { :git => "https://github.com/olame/mapbox-ios-sdk.git", :tag => s.version }
   s.social_media_url = 'https://twitter.com/mapbox'
 
   s.platform     = :ios, '5.0'
   
-  s.source_files = 'mapbox-ios-sdk','mapbox-ios-sdk/MapView/Map/*.{c,h,m}'
+  s.source_files = 'MapView/Map/*.{c,h,m}'
 end
