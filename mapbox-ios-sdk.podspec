@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/mapbox'
   s.platform     = :ios, '5.0'
   s.source_files = 'Proj4/*.h', 'MapView/Map/*.{h,c,m}'
-  s.requires_arc = true
+  s.requires_arc = false
   s.prefix_header_file = 'MapView/MapView_Prefix.pch'  
   
   s.frameworks = 'CoreGraphics', 'CoreLocation', 'Foundation', 'QuartzCore', 'UIKit'
