@@ -7,7 +7,7 @@
 Pod::Spec.new do |s|
   s.author = { "Mapbox" => "mobile@mapbox.com" }
   s.homepage = "https://www.mapbox.com/mapbox-ios-sdk/"
-  s.source = { :git => "https://github.com/mapbox/mapbox-ios-sdk.git", :tag => "v#{s.version.to_s}" }
+  s.source = { :git => "https://github.com/olame/mapbox-ios-sdk.git" }
   s.summary = "Mapbox framework for iOS forked."
   s.name             = "mapbox-ios-sdk"
   s.version          = '0.1'
