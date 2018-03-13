@@ -15,6 +15,29 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/olame/mapbox-ios-sdk.git", :tag => s.version }
   s.social_media_url = 'https://twitter.com/mapbox'
   s.platform     = :ios, '5.0'
-  s.source_files = 'MapView/Map/*.{c,h,m}'
-  s.requires_arc = false
+  s.source_files = 'Proj4/*.h', 'MapView/Map/*.{h,c,m}'
+  s.requires_arc = true
+  s.prefix_header_file = 'MapView/MapView_Prefix.pch'  
+  s.post_install do |library|
+    Dir.chdir File.join(library.sandbox_dir, 'MapBox') do
+      command = "xcodebuild -project MapView/MapView.xcodeproj -target Resources CONFIGURATION_BUILD_DIR=../../Resources 2>&1 > /dev/null"
+      unless system(command)
+        raise ::Pod::Informative, "Failed to generate MapBox resources bundle"
+      end
+    end
+    File.open(library.copy_resources_script_path, 'a') do |file|
+      file.puts "install_resource 'Resources/MapBox.bundle'"
+    end
+  end
+  s.frameworks = 'CoreGraphics', 'CoreLocation', 'Foundation', 'QuartzCore', 'UIKit'
+
+  s.libraries = 'Proj4', 'sqlite3', 'z'
+
+  s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC', 'LIBRARY_SEARCH_PATHS' => '"${PODS_ROOT}/MapBox/Proj4"' }
+
+  s.preserve_paths = 'Proj4/libProj4.a', 'MapView/MapView.xcodeproj', 'MapView/Map/Resources'
+
+  s.dependency 'FMDB', '2.0'
+  s.dependency 'GRMustache', '5.4.3'
+  s.dependency 'SMCalloutView', '1.1'
 end
