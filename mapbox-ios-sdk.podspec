@@ -14,8 +14,7 @@ Pod::Spec.new do |s|
   s.author           = { "Mapbox" => "mobile@mapbox.com" }
   s.source           = { :git => "https://github.com/olame/mapbox-ios-sdk.git", :tag => s.version }
   s.social_media_url = 'https://twitter.com/mapbox'
-
   s.platform     = :ios, '5.0'
-  
   s.source_files = 'MapView/Map/*.{c,h,m}'
+  s.requires_arc = false
 end
