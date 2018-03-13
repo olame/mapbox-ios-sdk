@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '5.0'
   
-  s.source_files = 'mapbox-ios-sdk','mapbox-ios-sdk/MapView/**'
+  s.source_files = 'mapbox-ios-sdk','mapbox-ios-sdk/MapView/Map/{c,h,m}'
 end
