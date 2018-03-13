@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.prefix_header_file = 'MapView/MapView_Prefix.pch'  
   s.post_install do |library|
-    Dir.chdir File.join(library.sandbox_dir, 'MapBox') do
+    Dir.chdir File.join(library.sandbox_dir, 'mapbox-ios-sdk') do
       command = "xcodebuild -project MapView/MapView.xcodeproj -target Resources CONFIGURATION_BUILD_DIR=../../Resources 2>&1 > /dev/null"
       unless system(command)
         raise ::Pod::Informative, "Failed to generate MapBox resources bundle"
