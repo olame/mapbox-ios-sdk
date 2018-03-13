@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
 
   s.preserve_paths = 'Proj4/libProj4.a', 'MapView/MapView.xcodeproj', 'MapView/Map/Resources'
 
-  s.dependency 'FMDB @ 0cfca84'
-  s.dependency 'GRMustache @ 6e51540'
-  s.dependency 'SMCalloutView @ 19b961a'
+  m.dependency 'FMDB', '2.0'
+  m.dependency 'GRMustache', '5.4.3'
+  m.dependency 'SMCalloutView', '1.1'
 end
