@@ -26,14 +26,14 @@ Pod::Spec.new do |s|
       end
     end
     File.open(library.copy_resources_script_path, 'a') do |file|
-      file.puts "install_resource 'Resources/MapBox.bundle'"
+      file.puts "install_resource 'Resources/mapbox-ios-sdk.bundle'"
     end
   end
   s.frameworks = 'CoreGraphics', 'CoreLocation', 'Foundation', 'QuartzCore', 'UIKit'
 
   s.libraries = 'Proj4', 'sqlite3', 'z'
 
-  s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC', 'LIBRARY_SEARCH_PATHS' => '"${PODS_ROOT}/MapBox/Proj4"' }
+  s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC', 'LIBRARY_SEARCH_PATHS' => '"${PODS_ROOT}/mapbox-ios-sdk/Proj4"' }
 
   s.preserve_paths = 'Proj4/libProj4.a', 'MapView/MapView.xcodeproj', 'MapView/Map/Resources'
 
